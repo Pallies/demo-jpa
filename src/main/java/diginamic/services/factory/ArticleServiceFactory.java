@@ -1,6 +1,8 @@
 package diginamic.services.factory;
 
 import diginamic.services.ArticleService;
+import diginamic.services.modedev.ArticleServiceDev;
+import diginamic.services.modeprod.ArticleServiceProd;
 
 /**
  * A factory for creating ArticleService objects.
@@ -15,17 +17,7 @@ public class ArticleServiceFactory extends ServiceFactory<ArticleService>{
 	 */
 	@Override
 	protected  ArticleService getInstanceDev() {
-		return new ArticleService();
-	}
-	
-	/**
-	 * Gets the instance test.
-	 *
-	 * @return the instance test
-	 */
-	@Override
-	protected  ArticleService getInstanceTest() {
-		return new ArticleService();
+		return new ArticleServiceDev();
 	}
 	
 	/**
@@ -35,7 +27,7 @@ public class ArticleServiceFactory extends ServiceFactory<ArticleService>{
 	 */
 	@Override
 	protected  ArticleService getInstanceProd() {
-		return new ArticleService();
+		return new ArticleServiceProd();
 	}
 
 }

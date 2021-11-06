@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import diginamic.entities.Livre;
+import diginamic.services.LivreService;
 import diginamic.services.dao.ILivreDao;
 import diginamic.services.factory.LivreServiceFactory;
 
@@ -17,7 +18,7 @@ public class App {
 
 		new LivreServiceFactory();
 		LivreServiceFactory t = new LivreServiceFactory();
-		ILivreDao test = t.builder();
+		LivreService test = t.builder();
 		List<Livre> livres1 = test.findAll();
 
 		for (Livre l : livres1) {
@@ -30,8 +31,8 @@ public class App {
 		livreNew.setTitre("Germinal");
 //		test.insert(livreNew);
 
-System.out.println(test.find(livreNew));
-		List<Livre> livres2 = test.findAll();
+LOGGER.info(test.find(livreNew)+" <-----------------------------------------------------");
+List<Livre> livres2 = test.findAll();
 
 		for (Livre l : livres2) {
 			System.out.println(l);
@@ -71,7 +72,7 @@ System.out.println(test.find(livreNew));
 //		
 //		em.close();
 //		emf.close();
-//		LOGGER.info("Hello, world!!");
+		LOGGER.info("Hello, world!!");
 	}
 
 }

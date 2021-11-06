@@ -1,6 +1,8 @@
 package diginamic.services.factory;
 
 import diginamic.services.LivreService;
+import diginamic.services.modedev.LivreServiceDev;
+import diginamic.services.modeprod.LivreServiceProd;
 
 /**
  * A factory for creating LivreService objects.
@@ -15,17 +17,7 @@ public class LivreServiceFactory extends ServiceFactory<LivreService>{
 	 */
 	@Override
 	protected  LivreService getInstanceDev() {
-		return new LivreService();
-	}
-	
-	/**
-	 * Gets the instance test.
-	 *
-	 * @return the instance test
-	 */
-	@Override
-	protected  LivreService getInstanceTest() {
-		return new LivreService();
+		return new LivreServiceDev();
 	}
 	
 	/**
@@ -35,7 +27,7 @@ public class LivreServiceFactory extends ServiceFactory<LivreService>{
 	 */
 	@Override
 	protected  LivreService getInstanceProd() {
-		return new LivreService();
+		return new LivreServiceProd();
 	}
 
 }

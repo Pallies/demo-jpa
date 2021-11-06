@@ -18,9 +18,6 @@ public abstract class ServiceFactory<T> {
 		case DEV:
 			instance = getInstanceDev();
 			break;
-		case TEST:
-			instance = getInstanceTest();
-			break;
 		case PROD:
 			instance = getInstanceProd();
 			break;
@@ -29,8 +26,6 @@ public abstract class ServiceFactory<T> {
 	}
 
 	protected abstract T getInstanceDev();
-
-	protected abstract T getInstanceTest();
 
 	protected abstract T getInstanceProd();
 

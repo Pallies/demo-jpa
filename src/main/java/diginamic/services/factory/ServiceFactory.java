@@ -8,7 +8,7 @@ public abstract class ServiceFactory<T> {
 
 	static {
 		ResourceBundle props = ResourceBundle.getBundle("developpement");
-		MODE_STATUS = Integer.valueOf(props.getString("mode_status"));
+		MODE_STATUS = Integer.parseInt(props.getString("mode_status"));
 	}
 
 	public T builder() {

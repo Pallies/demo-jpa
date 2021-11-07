@@ -1,5 +1,8 @@
 .classpath
 .project
+.jpb/
+.idea
 /.settings/
 /target/
 /src/main/resources/
+src/test/

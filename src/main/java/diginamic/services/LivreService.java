@@ -15,6 +15,7 @@ public abstract class LivreService implements ILivreDao{
 
 	/** The em. */
 	protected static EntityManager em;
+
 private static final Logger LOGGER = LoggerFactory.getLogger(LivreService.class);
 	/**
 	 * Sets the em.

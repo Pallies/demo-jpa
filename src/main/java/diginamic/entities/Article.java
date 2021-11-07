@@ -37,6 +37,7 @@ public class Article implements Serializable {
 	private double prix;
 
 	/** The id fournisseur. */
+
 	@Column(name = "ID_FOU", nullable = true)
 //	@ManyToOne(targetEntity = Fournisseur.class)
 	private int idFournisseur;

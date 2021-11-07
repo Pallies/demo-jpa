@@ -2,6 +2,9 @@ package diginamic.services;
 
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import diginamic.entities.Livre;
 import diginamic.services.dao.ILivreDao;
 
@@ -12,7 +15,7 @@ public abstract class LivreService implements ILivreDao{
 
 	/** The em. */
 	protected static EntityManager em;
-
+private static final Logger LOGGER = LoggerFactory.getLogger(LivreService.class);
 	/**
 	 * Sets the em.
 	 *
@@ -20,6 +23,7 @@ public abstract class LivreService implements ILivreDao{
 	 */
 	protected static void setEm(EntityManager em) {
 		LivreService.em = em;
+		LOGGER.info("CREATE ENTITY MANAGER <-----------------------------------------------------");
 	}
 
 	/**

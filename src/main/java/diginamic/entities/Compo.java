@@ -1,24 +1,24 @@
 package diginamic.entities;
 
 import javax.persistence.Column;
-import javax.persistence.OneToOne;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
  * The Class Compo.
  */
-
+@Entity
 @Table(name = "COMPO")
 public class Compo {
 
 	/** The id art. */
+	@Id
 	@Column(name = "ID_ART")
-	@OneToOne(targetEntity = Article.class)
 	private int idArt;
 
 	/** The id bon. */
 	@Column(name = "ID_BON")
-	@OneToOne(targetEntity = Bon.class)
 	private int IdBon;
 
 	/** The quantité. */
@@ -26,6 +26,7 @@ public class Compo {
 	private int quantité;
 
 	/**
+	 * #Constructor
 	 * Instantiates a new compo.
 	 */
 	public Compo() {

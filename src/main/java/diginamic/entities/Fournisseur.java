@@ -20,10 +20,11 @@ public class Fournisseur {
 	private int id;
 
 	/** The nom. */
-	@Column
+	@Column(name = "NOM")
 	private String nom;
 
 	/**
+	 * #Constructor
 	 * Instantiates a new fournisseur.
 	 */
 	public Fournisseur() {

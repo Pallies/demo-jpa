@@ -56,7 +56,10 @@ public final class LivreServiceProd extends LivreService implements ILivreDao {
 	public Livre find(Livre livre) {
 		setEm(EntityManagerRef.getInstance());
 		TypedQuery<Livre> qry = em.createQuery("FROM Livre as l WHERE l.titre= :titre", Livre.class);
-		Livre livreRef = qry.setParameter("titre", livre.getTitre()).getSingleResult();
+		Livre livreRef = qry.setParameter("titre", livre.getTitre())
+				.getResultStream()
+				.findFirst()
+				.orElse(null);
 		em.close();
 		return livreRef;
 	}

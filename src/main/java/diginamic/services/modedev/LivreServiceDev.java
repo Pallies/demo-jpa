@@ -1,8 +1,12 @@
 package diginamic.services.modedev;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.persistence.TypedQuery;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import diginamic.connection.EntityManagerRef;
 import diginamic.entities.Livre;
@@ -12,6 +16,16 @@ import diginamic.services.LivreService;
  * The Class LivreService.
  */
 public final class LivreServiceDev extends LivreService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LivreServiceDev.class);
+	private static final String TRANSACTION_BEGIN;
+	private static final String TRANSACTION_COMMIT;
+
+	static {
+		ResourceBundle props = ResourceBundle.getBundle("developpement");
+		TRANSACTION_BEGIN = props.getString("ET_BEGIN");
+		TRANSACTION_COMMIT = props.getString("ET_COMMIT");
+	}
 
 	/**
 	 * Insert.
@@ -24,9 +38,11 @@ public final class LivreServiceDev extends LivreService {
 		setEm(EntityManagerRef.getInstance());
 		Livre livreRef = find(livre);
 		if (livreRef == null) {
+			LOGGER.info(TRANSACTION_BEGIN);
 			em.getTransaction().begin();
 			em.persist(livre);
 			em.getTransaction().commit();
+			LOGGER.info(TRANSACTION_COMMIT);
 		}
 		return find(livre);
 	}
@@ -51,8 +67,11 @@ public final class LivreServiceDev extends LivreService {
 	@Override
 	public Livre find(Livre livre) {
 		setEm(EntityManagerRef.getInstance());
-		TypedQuery<Livre> qry = em.createQuery("FROM Livre as l WHERE l.titre= :titre", Livre.class);
-		return qry.setParameter("titre", livre.getTitre()).getSingleResult();
+		TypedQuery<Livre> qry = em.createQuery("SELECT l FROM Livre as l WHERE l.titre= :titre", Livre.class);
+		return qry.setParameter("titre", livre.getTitre())
+				.getResultStream()
+				.findFirst()
+				.orElse(null);
 	}
 
 	/**
@@ -81,9 +100,11 @@ public final class LivreServiceDev extends LivreService {
 
 		if (livreRef != null) {
 			livre2.setId(livreRef.getId());
+			LOGGER.info(TRANSACTION_BEGIN);
 			em.getTransaction().begin();
 			livreRef = em.merge(livre2);
 			em.getTransaction().commit();
+			LOGGER.info(TRANSACTION_COMMIT," livre --> {}",livreRef);
 		}
 		return livreRef;
 	}
@@ -98,10 +119,11 @@ public final class LivreServiceDev extends LivreService {
 	public Livre delete(Livre livre) {
 		setEm(EntityManagerRef.getInstance());
 		Livre livreRef = searchIdOrTitre(livre);
-
+		LOGGER.info(TRANSACTION_BEGIN);
 		em.getTransaction().begin();
 		em.remove(livreRef);
 		em.getTransaction().commit();
+		LOGGER.info(TRANSACTION_COMMIT);
 		return livreRef;
 	}
 

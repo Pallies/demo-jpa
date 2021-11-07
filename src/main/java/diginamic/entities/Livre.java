@@ -33,6 +33,7 @@ public class Livre implements Serializable {
 	private String auteur;
 	
 	/**
+	 * #Constructor
 	 * Instantiates a new livre.
 	 */
 	public Livre() {

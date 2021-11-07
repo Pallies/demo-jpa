@@ -55,7 +55,10 @@ public class ArticleServiceProd extends ArticleService {
 	public Article find(Article article) {
 		setEm(EntityManagerRef.getInstance());
 		TypedQuery<Article> qry = em.createQuery("SELECT a FROM Article as a WHERE ref= :ref", Article.class);
-		Article articleRef = qry.setParameter("ref", article.getRef()).getSingleResult();
+		Article articleRef = qry.setParameter("ref", article.getRef())
+				.getResultStream()
+				.findFirst()
+				.orElse(null);
 		em.close();
 		return articleRef;
 	}

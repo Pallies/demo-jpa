@@ -22,21 +22,27 @@ public class Bon {
 	private int id;
 
 	/** The numero. */
-	@Column
+	@Column(name = "NUMERO")
 	private int numero;
 
 	/** The date. */
-	@Column
+	@Column(name = "DATE")
 	private LocalDate date;
 
 	/** The delai. */
-	@Column
+	@Column(name = "DELAI")
 	private int delai;
 
 	/** The id fournisseur. */
-	@Column
+	@Column(name = "ID_FOU")
 	private int idFournisseur;
 
+	/**
+	 * #Constructor
+	 * Instantiates a new bon.
+	 */
+	public Bon() {
+	}
 	/**
 	 * Gets the date.
 	 *
@@ -112,7 +118,7 @@ public class Bon {
 	/**
 	 * Sets the id fournisseur.
 	 *
-	 * @param id_fournisseur the new id fournisseur
+	 * @param idFournisseur the new id fournisseur
 	 */
 	public void setIdFournisseur(int idFournisseur) {
 		this.idFournisseur = idFournisseur;

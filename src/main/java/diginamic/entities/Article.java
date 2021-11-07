@@ -25,23 +25,24 @@ public class Article implements Serializable {
 	private Integer id;
 
 	/** The ref. */
-	@Column(length = 13)
+	@Column(name = "REF", length = 13)
 	private String ref;
 
 	/** The designation. */
-	@Column(nullable = true)
+	@Column(name = "DESIGNATION", nullable = true)
 	private String designation;
 
 	/** The prix. */
-	@Column(scale = 7, precision = 2, nullable = true)
+	@Column(name = "PRIX", scale = 7, precision = 2, nullable = true)
 	private double prix;
 
 	/** The id fournisseur. */
-	@Column(name = "ID_FOU",nullable = true)
+	@Column(name = "ID_FOU", nullable = true)
 //	@ManyToOne(targetEntity = Fournisseur.class)
 	private int idFournisseur;
 
 	/**
+	 * #Constructor
 	 * Instantiates a new article.
 	 */
 	public Article() {

@@ -1,8 +1,12 @@
 package diginamic.services.modedev;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.persistence.TypedQuery;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import diginamic.connection.EntityManagerRef;
 import diginamic.entities.Article;
@@ -13,6 +17,15 @@ import diginamic.services.ArticleService;
  */
 public class ArticleServiceDev extends ArticleService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ArticleServiceDev.class);
+	private static final String TRANSACTION_BEGIN;
+	private static final String TRANSACTION_COMMIT;
+
+	static {
+		ResourceBundle props = ResourceBundle.getBundle("developpement");
+		TRANSACTION_BEGIN = props.getString("ET_BEGIN");
+		TRANSACTION_COMMIT = props.getString("ET_COMMIT");
+	}
 
 	/**
 	 * Insert.
@@ -25,9 +38,11 @@ public class ArticleServiceDev extends ArticleService {
 		setEm(EntityManagerRef.getInstance());
 		Article articleRef = searchIdOrTitre(article);
 		if (articleRef == null) {
+			LOGGER.info(TRANSACTION_BEGIN);
 			em.getTransaction().begin();
 			em.persist(article);
 			em.getTransaction().commit();
+			LOGGER.info(TRANSACTION_COMMIT);
 		}
 		return searchIdOrTitre(article);
 	}
@@ -52,8 +67,8 @@ public class ArticleServiceDev extends ArticleService {
 	@Override
 	public Article find(Article article) {
 		setEm(EntityManagerRef.getInstance());
-		TypedQuery<Article> qry = em.createQuery("SELECT a FROM Article as a WHERE ref= :ref", Article.class);
-		return qry.setParameter("ref", article.getRef()).getSingleResult();
+		TypedQuery<Article> qry = em.createQuery("FROM Article as a WHERE ref= :ref", Article.class);
+		return qry.setParameter("ref", article.getRef()).getResultStream().findFirst().orElse(null);
 	}
 
 	/**
@@ -81,9 +96,11 @@ public class ArticleServiceDev extends ArticleService {
 		Article articleRef = searchIdOrTitre(article1);
 		if (articleRef != null) {
 			article2.setId(articleRef.getId());
+			LOGGER.info(TRANSACTION_BEGIN);
 			em.getTransaction().begin();
 			articleRef = em.merge(article2);
 			em.getTransaction().commit();
+			LOGGER.info(TRANSACTION_COMMIT);
 		}
 		return articleRef;
 	}
@@ -99,9 +116,11 @@ public class ArticleServiceDev extends ArticleService {
 		setEm(EntityManagerRef.getInstance());
 		Article articleRef = searchIdOrTitre(article);
 		if (articleRef != null) {
+			LOGGER.info(TRANSACTION_BEGIN);
 			em.getTransaction().begin();
 			em.remove(articleRef);
 			em.getTransaction().commit();
+			LOGGER.info(TRANSACTION_COMMIT);
 		}
 		return articleRef;
 	}

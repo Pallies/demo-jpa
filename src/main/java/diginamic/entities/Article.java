@@ -16,8 +16,6 @@ import javax.persistence.Table;
 @Table(name = "ARTICLE")
 public class Article implements Serializable {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -4969013495348505351L;
 
 	/** The id. */
 	@Id
@@ -39,7 +37,6 @@ public class Article implements Serializable {
 	/** The id fournisseur. */
 
 	@Column(name = "ID_FOU", nullable = true)
-//	@ManyToOne(targetEntity = Fournisseur.class)
 	private int idFournisseur;
 
 	/**
